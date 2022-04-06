@@ -13,7 +13,7 @@ module ExpireTime
 
     def is_expired?(epoch_time : Int64 | Nil = Time.now)
         return false if epoch_time.nil?
-        Time.now > Time.unix(epoch_time)
+        Time.local > Time.unix(epoch_time)
     end
 
 end

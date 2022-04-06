@@ -56,22 +56,22 @@ describe HashFile do
   end
 
   it "should expire after 3 seconds" do
-    t = Time.now + Time::Span.new(0,0,3)
+    t = Time.local + 3.seconds
     HashFile.store(key, value, {"expire" => t})
     sleep 4
     HashFile[key].should be_nil
   end
 
   it "key should be expired" do
-    t = Time.now + Time::Span.new(0,0,3)
+    t = Time.local + 3.seconds
     HashFile.store(key, value, {"expire" => t})
     HashFile.expired?(key).should be_false
     sleep 4
     HashFile.expired?(key).should be_true
   end
 
-  it "should not expire after 3 seconds" do
-    t = Time.now + Time::Span.new(0,0,30)
+  it "should not expire after 30 seconds" do
+    t = Time.local + 30.seconds
     HashFile.store(key, value, {"expire" => t})
     sleep 4
     HashFile[key].should eq(value)
